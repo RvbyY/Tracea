@@ -65,7 +65,7 @@ const Index = () => {
                 <Zap className="w-4 h-4" />
                 Pour les artisans modernes
               </div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-foreground leading-tight mb-6">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold tex  t-foreground leading-tight mb-6">
                 Vos interventions,{" "}
                 <span className="text-accent">documentées et protégées</span>
               </h1>
