@@ -1,6 +1,7 @@
-import { Link, useLocation } from "react-router-dom";
-import { LayoutDashboard, Plus, Settings, LogOut, Wrench, ClipboardList } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { LayoutDashboard, Plus, Settings, LogOut, Wrench } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { logout } from "@/lib/logout";
 
 const navItems = [
   { to: "/dashboard", icon: LayoutDashboard, label: "Tableau de bord" },
@@ -10,6 +11,11 @@ const navItems = [
 
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await logout(navigate);
+  };
 
   return (
     <div className="min-h-screen bg-background flex">
@@ -43,14 +49,15 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
           })}
         </nav>
 
+        {/* Logout button — calls our logout() function */}
         <div className="p-3">
-          <Link
-            to="/login"
-            className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-sidebar-foreground/60 hover:text-sidebar-foreground hover:bg-sidebar-accent/50 transition-colors"
+          <button
+            onClick={handleLogout}
+            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-sidebar-foreground/60 hover:text-sidebar-foreground hover:bg-sidebar-accent/50 transition-colors"
           >
             <LogOut className="w-5 h-5" />
             Déconnexion
-          </Link>
+          </button>
         </div>
       </aside>
 
@@ -72,6 +79,15 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
             </Link>
           );
         })}
+
+        {/* Logout for mobile */}
+        <button
+          onClick={handleLogout}
+          className="flex flex-col items-center gap-1 px-3 py-1 text-xs text-muted-foreground transition-colors"
+        >
+          <LogOut className="w-5 h-5" />
+          <span>Déconnexion</span>
+        </button>
       </div>
 
       {/* Main content */}

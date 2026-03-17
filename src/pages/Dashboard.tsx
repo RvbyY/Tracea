@@ -6,6 +6,8 @@ import { Plus, Search, Calendar, TrendingUp, Clock, Filter } from "lucide-react"
 import { Link } from "react-router-dom";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { logout } from "@/lib/logout";
 import useSessionGuard from "@/hooks/useSessionGuard";
 
 // Mock data
@@ -48,6 +50,7 @@ const paymentBadge = (status: string) => {
 
 const Dashboard = () => {
   useSessionGuard();
+  const navigate = useNavigate();
   const [search, setSearch] = useState("");
 
   const filtered = pastInterventions.filter(
@@ -190,6 +193,9 @@ const Dashboard = () => {
           </CardContent>
         </Card>
       </div>
+      <button onClick={() => logout(navigate)}>
+        Se déconnecter
+      </button>
     </AppLayout>
   );
 };
