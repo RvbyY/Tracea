@@ -9,8 +9,10 @@ import { Upload, Zap, Camera } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import useSessionGuard from "@/hooks/useSessionGuard";
 
 const NewIntervention = () => {
+  useSessionGuard();
   const navigate = useNavigate();
   const [notes, setNotes] = useState("");
   const [aiSummary, setAiSummary] = useState("");

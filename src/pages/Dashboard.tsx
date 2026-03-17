@@ -6,6 +6,7 @@ import { Plus, Search, Calendar, TrendingUp, Clock, Filter } from "lucide-react"
 import { Link } from "react-router-dom";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { useState } from "react";
+import useSessionGuard from "@/hooks/useSessionGuard";
 
 // Mock data
 const chartData = [
@@ -46,6 +47,7 @@ const paymentBadge = (status: string) => {
 };
 
 const Dashboard = () => {
+  useSessionGuard();
   const [search, setSearch] = useState("");
 
   const filtered = pastInterventions.filter(
