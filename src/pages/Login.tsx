@@ -1,17 +1,42 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Wrench } from "lucide-react";
 import { useState } from "react";
+import { supabase } from "@/lib/supabase";
+import { createSession } from "@/lib/sessions";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: integrate with auth
+    setError("");
+    setLoading(true);
+
+    const { data, error: authError } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (authError) {
+      setError(authError.message);
+      setLoading(false);
+      return;
+    }
+
+    await createSession(
+      data.user.id,
+      data.session.access_token
+    );
+
+    setLoading(false);
+    navigate("/dashboard");
   };
 
   return (
@@ -40,7 +65,8 @@ const Login = () => {
             </div>
             <Input id="password" type="password" placeholder="••••••••" value={password} onChange={(e) => setPassword(e.target.value)} required />
           </div>
-          <Button type="submit" variant="accent" className="w-full">Se connecter</Button>
+          {error && (<p className="text-sm text-detructive">{error}</p>)}
+          <Button type="submit" variant="accent" className="w-full" disabled={loading}>{loading ? "Connexion..." : "Se connecter"}</Button>
         </form>
 
         <p className="text-center text-sm text-muted-foreground mt-6">
