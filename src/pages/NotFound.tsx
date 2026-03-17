@@ -1,7 +1,9 @@
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import useSessionGuard from "@/hooks/useSessionGuard";
 
 const NotFound = () => {
+  useSessionGuard();
   const location = useLocation();
 
   useEffect(() => {

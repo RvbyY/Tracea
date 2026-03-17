@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, FileText, Mail, Download, MapPin, Phone, Mail as MailIcon, Calendar, DollarSign, User } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "sonner";
+import useSessionGuard from "@/hooks/useSessionGuard";
 
 // Mock detail data
 const mockIntervention = {
@@ -38,6 +39,7 @@ const paymentStyles: Record<string, string> = {
 };
 
 const InterventionDetail = () => {
+  useSessionGuard();
   const { id } = useParams();
   const intervention = mockIntervention; // In real app, fetch by id
 
