@@ -126,12 +126,16 @@ const Pricing = () => {
                 <Button
                   variant={plan.popular ? "accent" : "outline"}
                   className="w-full"
-                  asChild
+                  onClick={() => {
+                    if (plan.name === "Sur mesure") {
+                      window.open("https://docs.google.com/forms/d/e/1FAIpQLSd4rhtJs3NxEdaHmuGVaOX8Gl4wGRr0kTq5hDvs71IzwkFqHw/viewform?usp=header", "_blank");
+                    } else {
+                      window.location.href = "/signup";
+                    }
+                  }}
                 >
-                  <Link to="/signup">
-                    {plan.cta}
-                    <ArrowRight className="w-4 h-4 ml-1" />
-                  </Link>
+                  {plan.cta}
+                  <ArrowRight className="w-4 h-4 ml-1" />
                 </Button>
               </motion.div>
             ))}
