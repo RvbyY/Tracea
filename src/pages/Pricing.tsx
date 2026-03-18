@@ -128,7 +128,7 @@ const Pricing = () => {
                   className="w-full"
                   onClick={() => {
                     if (plan.name === "Sur mesure") {
-                      window.open("https://docs.google.com/forms/d/e/1FAIpQLSd4rhtJs3NxEdaHmuGVaOX8Gl4wGRr0kTq5hDvs71IzwkFqHw/viewform?usp=header", "_blank");
+                      window.open("https://docs.google.com/forms/d/e/1FAIpQLSd4rhtJs3NxEdaHmuGVaOX8Gl4wGRr0kTq5hDvs71IzwkFqHw/viewform?usp=header", "formulaire devis", "noopener");
                     } else {
                       globalThis.location.href = "/signup";
                     }
